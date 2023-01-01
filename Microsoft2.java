@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+//  Q- Combination Sum with a twist.
 
 // combination 
 //     if we have n then we can select numbers from 1 to n. 
@@ -23,20 +24,21 @@ import java.util.List;
 //  we will be using backtracking for avoiding unnecessary nodes
 
 public class Microsoft2 {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList();
-        backtrack(candidates, 0, target, new ArrayList(), result);
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(result, new ArrayList<>(), k, n, 1);
         return result;
+
     }
 
-    private void backtrack(int[] cand, int start, int target, List<Integer> list, List<List<Integer>> result) {
-        if (target < 0)
+    void backtrack(List<List<Integer>> result, List<Integer> list, int k, int tot, int start) {
+        if (list.size() > k)
             return;
-        if (target == 0)
-            result.add(new ArrayList(list));
-        for (int i = start; i < cand.length; i++) {
-            list.add(cand[i]);
-            backtrack(cand, i, target - cand[i], list, result);
+        if (list.size() == k && tot == 0)
+            result.add(new ArrayList<>(list));
+        for (int i = start; i <= 9; i++) {
+            list.add(i);
+            backtrack(result, list, k, tot - i, i + 1);
             list.remove(list.size() - 1);
         }
     }
